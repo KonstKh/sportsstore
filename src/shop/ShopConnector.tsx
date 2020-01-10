@@ -4,9 +4,11 @@ import { connect } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { Shop } from './Shop';
 import { DataTypes } from '../data/types';
+import { addToCart, updateCartQuantity, removeFromCart, clearCart } from '../data/cardActionCreators';
+import { CartDetails } from './CartDetails';
 
 const mapStateToProps = (dataStore: any) => ({ ...dataStore });
-const mapDispatchToProps = { loadData };
+const mapDispatchToProps = { loadData, addToCart, updateCartQuantity, removeFromCart, clearCart };
 
 const filterProducts = (products: any, category: any) => (
   !category || category === 'All'
@@ -27,6 +29,7 @@ const Connector = (props: any) => {
         return (<Shop {...props}{...routeProps} products={filterProducts(props && props.products, routeProps.match.params.category)} />)
       }
       } />
+    <Route path="/shop/cart" render={(routeProps: any) => <CartDetails {...props}{...routeProps} />} />
     <Redirect to="/shop/products" />
   </Switch>
 

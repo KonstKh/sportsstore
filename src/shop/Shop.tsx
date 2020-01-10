@@ -1,14 +1,22 @@
 import React from 'react';
 import { CategoryNavigation } from './CategoryNavigation';
 import { ProductList } from './ProductList';
-
+import { CartSummary} from './CartSummary';
+import { SportsStore } from '../data/cartReducer';
 
 export const Shop = (props: any) => {
+  
+  const handleAddToCart = (...args: any) => {
+    props.addToCart(...args);
+    props.history.push("/shop/cart")
+  }
+
   return(
   <div className="container-fluid">
     <div className="row">
       <div className="col bg-dark text-white">
         <div className="navbar-brand">SPORTS STORE</div>
+        <CartSummary {...props} />
       </div>
     </div>
     <div className="row">
@@ -16,7 +24,7 @@ export const Shop = (props: any) => {
         <CategoryNavigation baseUrl="/shop/products" categories={props.categories} />
       </div>
       <div className="col-9 p-2">
-        <ProductList products={props.products} />
+        <ProductList products={props.products} addToCart={handleAddToCart} />
       </div>
     </div>
   </div>

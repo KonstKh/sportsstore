@@ -1,4 +1,5 @@
 import React from 'react';
+import { Product } from '../data/types';
 
 export const ProductList = (props: any) => {
 
@@ -11,7 +12,10 @@ export const ProductList = (props: any) => {
         {p.name}
         <span className="badge badge-pill badge-primary float-right">${p.price.toFixed(2)}</span>
       </h4>
-      <div className="card-text bg-white p-1">{p.description}</div>
+      <div className="card-text bg-white p-1">
+        {p.description}
+        <button className="btn btn-success btn-sm float-right" onClick={() => props.addToCart(p)}>Add To Cart</button>
+      </div>
     </div>
     )
 }

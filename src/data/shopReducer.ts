@@ -1,6 +1,7 @@
-import { ActionTypes } from './types';
+import { ActionTypes, DataLoadAction } from './types';
+import { SportsStore } from './cartReducer';
 
-export const ShopReducer = (storeData: any, action: any) => {
+export const ShopReducer = (storeData: SportsStore, action: DataLoadAction): SportsStore => {
   switch (action.type) {
     case ActionTypes.DATA_LOAD:
       return {
