@@ -2,7 +2,15 @@ import React from 'react';
 import { CategoryNavigation } from './CategoryNavigation';
 import { ProductList } from './ProductList';
 import { CartSummary} from './CartSummary';
-import { SportsStore } from '../data/cartReducer';
+import { ProductPageConnector } from './ProductPageConnector';
+import { PaginationControls } from '../components/PaginationControls';
+
+// import { RouteProps } from 'react-router-dom';
+// import { IProps, StateProps } from './ShopConnector';
+// import { IStoreState } from '../data/cartReducer';
+// import { SportsStore } from '../data/cartReducer';
+
+const ProductPages = ProductPageConnector(PaginationControls);
 
 export const Shop = (props: any) => {
   
@@ -24,6 +32,7 @@ export const Shop = (props: any) => {
         <CategoryNavigation baseUrl="/shop/products" categories={props.categories} />
       </div>
       <div className="col-9 p-2">
+        <ProductPages />
         <ProductList products={props.products} addToCart={handleAddToCart} />
       </div>
     </div>

@@ -1,21 +1,38 @@
-import { ActionTypes, CartActions, CartAddAction, Product, CartUpdateAction, CartDeleteAction, ActionPayload } from './types';
+import { ActionTypes, CartActions, CartAddAction, IProduct, CartUpdateAction, CartDeleteAction, IActionPayload } from './types';
 
 interface CartItem {
-  product: Product;
+  product: IProduct;
   quantity: number;
 }
 
-export interface SportsStore {
+export type StoreState = Readonly<{
+  cart: ReadonlyArray<CartItem>;
+  cartItems: number;
+  cartPrice: number;
+  categories: any,
+  products: ReadonlyArray<IProduct>;
+  products_total: number;
+  pageSize?: number;
+  sortKey?: string;
+}>
+
+export interface IStoreState {
   cart: CartItem[],
   cartItems: number,
   cartPrice: number,
   categories: any,
-  products: Product[],
+  products: IProduct[],
+  // categories_total: number,
+  products_total: number,
+  pageSize: number,
+  sortKey: string,
+  order: any,
+  
 }
 
 // todo: don't mutate state
-export const CartReducer = (storeData: SportsStore, action: CartActions): SportsStore => {
-  let newStore: SportsStore = { cart: [], cartItems: 0, cartPrice: 0, ...storeData };
+export const CartReducer = (storeData: IStoreState, action: CartActions): IStoreState => {
+  let newStore: IStoreState = { cart: [], cartItems: 0, cartPrice: 0, ...storeData };
   switch (action.type) {
     case ActionTypes.CART_ADD:
       const prods = (action as CartAddAction).payload.product;
@@ -23,7 +40,7 @@ export const CartReducer = (storeData: SportsStore, action: CartActions): Sports
 
       let existing = newStore.cart.find((item: CartItem) => item.product.id === prods.id);
       if (existing) { existing.quantity = parseInt(existing.quantity.toString(), 10) + qtty }
-      else { newStore.cart = [...newStore.cart, action.payload as ActionPayload] }
+      else { newStore.cart = [...newStore.cart, action.payload as IActionPayload] }
       newStore.cartItems += qtty;
       newStore.cartPrice += prods.price * qtty;
       return newStore;

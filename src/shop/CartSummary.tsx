@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { SportsStore } from '../data/cartReducer';
+import { IStoreState } from '../data/cartReducer';
 
-export const CartSummary = (props: SportsStore) => {
+export const CartSummary = (props: IStoreState) => {
 
   const getSummary = () => {
     if (props.cartItems > 0) {
