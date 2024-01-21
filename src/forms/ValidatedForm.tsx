@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { ValidationError } from './ValidationError';
 import { GetMessages } from './ValidationMessages';
 
@@ -27,14 +27,14 @@ export const ValidatedForm = (props: any) => {
   }
 
   // TODO: useRef instead
-  useEffect(() => {
+  useRef(() => {
     if(initialLoad) return;
     if(Object.keys(validationErrors).length === 0) {
       const entries = Object.entries(formElements).map(e => ({[e[0]]: e[1].value}))
       const data =  Object.assign( {}, entries)
       props.submitCallback(data);
     }
-  },  [initialLoad, validationErrors]);
+  });
 
   const registerRef = (elem: any) => {
     if (elem !== null) {
